@@ -17,6 +17,12 @@ def validate_albedo(albedo):
 class Planet(models.Model):
     """Generated planet by user."""
 
+    class ResolutionList(models.TextChoices):
+        """List of available image resolutions in pixels."""
+        LOW_RES = "256x256", "256x256"
+        AVG_RES = "512x512", "512x512"
+        HIGH_RES = "1024x1024", "1024x1024"
+
     name = models.CharField(
         max_length=150,
         help_text="Name of the planet.",
@@ -51,6 +57,11 @@ class Planet(models.Model):
         max_digits=4,
         decimal_places=2,
         help_text="The gravitational acceleration on the planet's surface at the equator.",
+    )
+    resolution = models.CharField(
+        max_length=16,
+        choices=ResolutionList.choices,
+        default=ResolutionList.LOW_RES,
     )
 
     def __str__(self):

@@ -11,5 +11,6 @@ class PlanetForm(ModelForm):
         fields = [
             "name", "radius",
             "bulk_density", "albedo",
-            "gravity",
+            "gravity", "resolution",
         ]
+        labels = {'resolution': 'Image resolution (in pixels)'}
