@@ -10,10 +10,12 @@ Simple web-service for creating images of planet
     cd planet_generator
     ```
 - Make initial setup:
-    ```dotenv
-  # Django's secret key
-    SECRET_KEY=
-  ```
+  * Rename `.env.dist` to `.env`;
+  * Set current parameters in `.env`:
+     ```dotenv
+      # Django's secret key
+      SECRET_KEY=
+      ```
 
 ## Task list
 - [ ] Add more fields to planet model
