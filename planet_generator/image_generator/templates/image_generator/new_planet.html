@@ -1,0 +1,12 @@
+{% extends "image_generator/base.html" %}
+
+{% block content %}
+  <p>Generate new planet</p>
+
+  <form action="{% url 'img_generate:new_planet' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Generate</button>
+  </form>
+
+{% endblock content %}
