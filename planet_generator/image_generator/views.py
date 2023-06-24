@@ -1,3 +1,5 @@
+"""Views for 'image_generator' app."""
+
 from django.shortcuts import render, redirect
 
 from .forms import PlanetForm

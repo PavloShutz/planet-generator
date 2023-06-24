@@ -1,3 +1,5 @@
+"""Models in 'image_generator' app."""
+
 from decimal import Decimal
 
 from django.db import models

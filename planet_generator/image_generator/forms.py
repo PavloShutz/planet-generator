@@ -1,3 +1,5 @@
+"""Forms for 'image_generator' app."""
+
 from django.forms import ModelForm
 
 from .models import Planet

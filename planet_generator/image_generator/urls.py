@@ -1,3 +1,5 @@
+"""URL patterns for 'image_generator' app."""
+
 from django.urls import path
 
 from . import views
