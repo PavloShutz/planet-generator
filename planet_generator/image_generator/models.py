@@ -16,6 +16,15 @@ def validate_albedo(albedo):
         )
 
 
+def validate_positive(value):
+    """Validate if given value is a positive number."""
+    if value < 0:
+        raise ValidationError(
+            _("%(value)s must be a positive number"),
+            params={"value": value},
+        )
+
+
 class Planet(models.Model):
     """Generated planet by user."""
 
@@ -34,16 +43,19 @@ class Planet(models.Model):
         decimal_places=4,
         db_column="mean_radius",
         help_text="Mean radius of the planet.",
+        validators=[validate_positive],
     )
     mass = models.DecimalField(
         max_digits=10,
         decimal_places=5,
         help_text="Total mass of the planet.",
+        validators=[validate_positive],
     )
     bulk_density = models.DecimalField(
         max_digits=5,
         decimal_places=4,
         help_text="Density computed using the total volume and mass of the planet.",
+        validators=[validate_positive],
     )
     albedo_help_text = """
         Albedo is ratio of the light received by a body to the light reflected by that body.
@@ -53,12 +65,13 @@ class Planet(models.Model):
         max_digits=5,
         decimal_places=4,
         help_text=albedo_help_text,
-        validators=[validate_albedo],
+        validators=[validate_positive, validate_albedo],
     )
     gravity = models.DecimalField(
         max_digits=4,
         decimal_places=2,
         help_text="The gravitational acceleration on the planet's surface at the equator.",
+        validators=[validate_positive],
     )
     resolution = models.CharField(
         max_length=16,
