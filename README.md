@@ -18,6 +18,8 @@ Simple web-service for creating images of planet
      ```dotenv
       # Django's secret key
       SECRET_KEY=
+      # OpenAI secret API key
+      OPENAI_TOKEN=
       ```
 
 ## Task list
