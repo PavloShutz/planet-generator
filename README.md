@@ -23,7 +23,7 @@ Simple web-service for creating images of planet
       ```
 
 ## Task list
-- [ ] Add more fields to planet model
+- [x] ~~Add more fields to planet model~~
   - [x] ~~image~~
   - [x] ~~resolution~~
   - [x] ~~atmosphere~~
