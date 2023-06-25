@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my apps
     'image_generator',
+    'users',
 
     # default apps
     'django.contrib.admin',
