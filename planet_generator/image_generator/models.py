@@ -75,7 +75,7 @@ class Planet(models.Model):
     )
     atmosphere = models.BooleanField(
         default=True,
-        help_text="Specify if planet would have some kind of an atmosphere."
+        help_text="Specify if planet would have some kind of atmosphere."
     )
     resolution = models.CharField(
         max_length=16,
