@@ -7,9 +7,12 @@ Simple web-service for creating images of planet
 - Clone repository:
     ```commandline
     git clone https://github.com/PavloShutz/planet-generator.git
-    cd planet_generator
     ```
 - Make initial setup:
+  * Install requirements:
+    ```commandline
+    pip install -r requirements.txt
+    ```
   * Rename `.env.dist` to `.env`;
   * Set current parameters in `.env`:
      ```dotenv
