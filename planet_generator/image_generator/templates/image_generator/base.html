@@ -1,4 +1,13 @@
-<p>Planet generator</p>
+<p>
+    <a href="{% url 'img_generate:index' %}">Planet generator</a> -
+    {% if user.is_authenticated %}
+        Hello, {{ user.username }} -
+        <a href="{% url 'users:logout' %}">Log out</a>
+    {% else %}
+        <a href="{% url 'users:login' %}">Log in</a> -
+        <a href="{% url 'users:register' %}">Register</a>
+    {% endif %}
+</p>
 <p>Generate images of planets using AI based on your input!</p>
 
 {% block content %}{% endblock content %}

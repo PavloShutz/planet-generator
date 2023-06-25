@@ -1,0 +1,13 @@
+{% extends 'image_generator/base.html' %}
+
+{% block content %}
+
+    <p>Register:</p>
+
+    <form action="{% url 'users:register' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Register</button>
+    </form>
+
+{% endblock content %}
