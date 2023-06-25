@@ -41,9 +41,11 @@ def generate_text_prompt(**kwargs) -> str:
 def generate_image_of_planet(prompt: str, size: str) -> str:
     """
     Generate image of planet based on text prompt and image's size.
+
     Args:
         prompt (str): Text prompt on which will be based the result.
         size (str): Size of a final image. Available values: 256x256, 512x512, or 1024x1024.
+
     Returns:
         Url of the generated picture.
     """

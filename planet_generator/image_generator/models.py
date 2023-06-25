@@ -34,6 +34,13 @@ class Planet(models.Model):
         AVG_RES = "512x512", "512x512"
         HIGH_RES = "1024x1024", "1024x1024"
 
+    class PlanetType(models.TextChoices):
+        """Planet types by composition."""
+        TERRESTRIAL = "terrestrial", _("Terrestrial")
+        GAS_GIANT = "gas giant", _("Gas Giant")
+        DESERT = "desert", _("Desert")
+        ICE = "ice", _("Ice")
+
     name = models.CharField(
         max_length=150,
         help_text="Name of the planet.",
@@ -42,19 +49,29 @@ class Planet(models.Model):
         max_digits=11,
         decimal_places=4,
         db_column="mean_radius",
-        help_text="Mean radius of the planet.",
+        help_text="Mean radius of the planet (km).",
         validators=[validate_positive],
     )
     mass = models.DecimalField(
         max_digits=10,
         decimal_places=5,
-        help_text="Total mass of the planet.",
+        help_text="Total mass of the planet (x10^24 kg).",
         validators=[validate_positive],
+    )
+    temperature = models.IntegerField(
+        help_text="The average temperature on the planet (K).",
+        default=0,
+    )
+    planet_type = models.CharField(
+        max_length=200,
+        choices=PlanetType.choices,
+        default=PlanetType.TERRESTRIAL,
+        help_text="Planet type by composition.",
     )
     bulk_density = models.DecimalField(
         max_digits=5,
         decimal_places=4,
-        help_text="Density computed using the total volume and mass of the planet.",
+        help_text="Density computed using the total volume and mass of the planet (g*cm^(-3)).",
         validators=[validate_positive],
     )
     albedo_help_text = """
@@ -70,12 +87,12 @@ class Planet(models.Model):
     gravity = models.DecimalField(
         max_digits=4,
         decimal_places=2,
-        help_text="The gravitational acceleration on the planet's surface at the equator.",
+        help_text="The gravitational acceleration on the planet's surface at the equator (m*s^(-2)).",
         validators=[validate_positive],
     )
     atmosphere = models.BooleanField(
         default=True,
-        help_text="Specify if planet would have some kind of atmosphere."
+        help_text="Specify whether planet would have some kind of atmosphere."
     )
     resolution = models.CharField(
         max_length=16,
