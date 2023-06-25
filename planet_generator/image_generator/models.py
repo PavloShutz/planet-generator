@@ -78,6 +78,10 @@ class Planet(models.Model):
         choices=ResolutionList.choices,
         default=ResolutionList.LOW_RES,
     )
+    image = models.ImageField(
+        upload_to='images/',
+        help_text="Generated image of a planet."
+    )
 
     def __str__(self):
         """Return name of the planet."""
