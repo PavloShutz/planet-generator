@@ -73,6 +73,10 @@ class Planet(models.Model):
         help_text="The gravitational acceleration on the planet's surface at the equator.",
         validators=[validate_positive],
     )
+    atmosphere = models.BooleanField(
+        default=True,
+        help_text="Specify if planet would have some kind of an atmosphere."
+    )
     resolution = models.CharField(
         max_length=16,
         choices=ResolutionList.choices,

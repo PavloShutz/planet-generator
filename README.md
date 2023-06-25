@@ -24,6 +24,7 @@ Simple web-service for creating images of planet
 - [ ] Add more fields to planet model
   - [x] ~~image~~
   - [x] ~~resolution~~
+  - [x] ~~atmosphere~~
 - [ ] Create function to generate text request for DALL-E
 - [ ] Add user authorization and authentication
 - [ ] Create image portfolio for every user
