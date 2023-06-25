@@ -29,6 +29,6 @@ Simple web-service for creating images of planet
   - [x] ~~atmosphere~~
   - [x] ~~temperature~~
 - [x] ~~Create function to generate text request for DALL-E~~
-- [x] Add user authorization and authentication
+- [x] ~~Add user authorization and authentication~~
 - [ ] Create image portfolio for every user
 - [ ] Make possible to publish, like/dislike and comment on someone's planet
