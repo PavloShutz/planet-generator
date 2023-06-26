@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     # my apps
     'image_generator',
     'users',
+    'publications',
 
     # default apps
     'django.contrib.admin',
@@ -125,5 +126,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Setting media options
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 MEDIA_URL = '/images/'
