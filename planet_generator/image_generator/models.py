@@ -101,7 +101,6 @@ class Planet(models.Model):
         default=ResolutionList.LOW_RES,
     )
     image = models.ImageField(
-        upload_to='images/',
         help_text="Generated image of a planet."
     )
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
