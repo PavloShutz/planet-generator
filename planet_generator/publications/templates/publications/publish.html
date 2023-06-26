@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "image_generator/base.html" %}
+
+{% block content %}
+
+    <p>Create publication for '{{ planet.name }}':</p>
+
+    <form action="{% url 'publications:publish' planet.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Publish</button>
+    </form>
+
+{% endblock content %}
