@@ -1,0 +1,18 @@
+{% extends "image_generator/base.html" %}
+
+{% block content %}
+
+    <p>My new planet: {{ publication.planet.name }}</p>
+    <p>Description: {{ publication.pub_text|default:"No descritpion provided" }}</p>
+    <ul>
+        <li>Mass: {{ publication.planet.mass|floatformat }}x10^24 kg</li>
+        <li>Radius: {{ publication.planet.radius|floatformat }} km</li>
+        <li>Bulk density: {{ publication.planet.bulk_density|floatformat }} g*cm^(-3)</li>
+        <li>Albedo: {{ publication.planet.albedo|floatformat }}</li>
+        <li>Gravity: {{ publication.planet.gravity|floatformat }} m*s^(-2)</li>
+        <li>Temperature: {{ publication.planet.temperature|floatformat }} K</li>
+        <li>Has atmosphere: {{ publication.planet.atmosphere|yesno|title }}</li>
+        <li><img src="{{ publication.planet.image.url }}" alt="Oops"></li>
+    </ul>
+
+{% endblock content %}
