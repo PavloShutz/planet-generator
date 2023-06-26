@@ -32,6 +32,6 @@ Simple web-service for creating images of planet
 - [x] ~~Add user authorization and authentication~~
 - [x] ~~Create image portfolio for every user~~
 - [ ] Make possible to: 
-  - [ ] publish
+  - [x] ~~publish~~
   - [ ] like/dislike
   - [ ] comment on someone's post
