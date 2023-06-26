@@ -4,7 +4,17 @@
 
     <p>{{ user.username }}'s portfolio:</p>
     {% for planet in planets %}
-        <p>{{ planet }}</p>
+        <p>{{ planet.name }}</p>
+        <ul>
+            <li>Mass: {{ planet.mass|floatformat }}x10^24 kg</li>
+            <li>Radius: {{ planet.radius|floatformat }} km</li>
+            <li>Bulk density: {{ planet.bulk_density|floatformat }} g*cm^(-3)</li>
+            <li>Albedo: {{ planet.albedo|floatformat }}</li>
+            <li>Gravity: {{ planet.gravity|floatformat }} m*s^(-2)</li>
+            <li>Temperature: {{ planet.temperature|floatformat }} K</li>
+            <li>Has atmosphere: {{ planet.atmosphere|yesno|title }}</li>
+            <li><img src="{{ planet.image.url }}" alt="Oops"></li>
+        </ul>
     {% empty %}
         <p>You have no planets in your portfolio yet.</p>
     {% endfor %}
