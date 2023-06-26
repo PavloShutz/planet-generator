@@ -1,0 +1,12 @@
+{% extends "image_generator/base.html" %}
+
+{% block content %}
+
+    <p>{{ user.username }}'s portfolio:</p>
+    {% for planet in planets %}
+        <p>{{ planet }}</p>
+    {% empty %}
+        <p>You have no planets in your portfolio yet.</p>
+    {% endfor %}
+
+{% endblock content %}

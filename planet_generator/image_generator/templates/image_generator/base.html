@@ -1,8 +1,9 @@
 <p>
     <a href="{% url 'img_generate:index' %}">Planet generator</a> -
     {% if user.is_authenticated %}
-        <a href="{% url 'img_generate:new_planet' %}">New planet</a> -
         Hello, {{ user.username }} -
+        <a href="{% url 'users:portfolio' %}">My portfolio</a> -
+        <a href="{% url 'img_generate:new_planet' %}">New planet</a> -
         <a href="{% url 'users:logout' %}">Log out</a>
     {% else %}
         <a href="{% url 'users:login' %}">Log in</a> -
