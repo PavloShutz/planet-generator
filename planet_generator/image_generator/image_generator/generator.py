@@ -1,13 +1,16 @@
 """Module for generating picture of a planet."""
 
+import urllib.request as url_request
+
 import openai
+from django.core.files import File
 
 from planet_generator.settings import OPENAI_TOKEN
 
 openai.api_key = OPENAI_TOKEN
 
 
-def generate_text_prompt(**kwargs) -> str:
+def _generate_text_prompt(**kwargs) -> str:
     """
     Create text prompt for image generation.
 
@@ -42,7 +45,7 @@ def generate_text_prompt(**kwargs) -> str:
     return text_prompt.rstrip()
 
 
-def generate_image_of_planet(prompt: str, size: str) -> str:
+def _generate_image_of_planet(prompt: str, size: str) -> str:
     """
     Generate image of planet based on text prompt and image's size.
 
@@ -59,3 +62,31 @@ def generate_image_of_planet(prompt: str, size: str) -> str:
         size=size,
     )
     return response["data"][0]["url"]
+
+
+def save_planet_picture(planet, user) -> None:
+    """
+    Save path to image into a database.
+    Args:
+        planet: An instance of Planet model
+        user: `request.user` instance
+    Returns:
+        None
+    """
+    prompt = _generate_text_prompt(
+        mass=planet.mass,
+        radius=planet.radius,
+        bulk_density=planet.bulk_density,
+        albedo=planet.albedo,
+        gravity=planet.gravity,
+        atmosphere=planet.atmosphere,
+        temperature=planet.temperature,
+        planet_type=planet.planet_type,
+    )
+    img_url = _generate_image_of_planet(prompt=prompt, size=planet.resolution)
+    planet.owner = user
+    filename = url_request.urlretrieve(img_url)[0]
+    planet.image.save(
+        f'{user.username}/{planet.name}.png',
+        File(open(filename, 'rb')),
+    )

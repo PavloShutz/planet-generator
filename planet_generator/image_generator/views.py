@@ -3,6 +3,7 @@
 from django.shortcuts import render, redirect
 
 from .forms import PlanetForm
+from . import image_generator as ig
 
 
 def index(request):
@@ -17,7 +18,9 @@ def new_planet(request):
     else:
         form = PlanetForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_planet = form.save(commit=False)
+            ig.save_planet_picture(new_planet, request.user)
+            new_planet.save()
             return redirect("img_generate:index")
 
     context = {"form": form}
