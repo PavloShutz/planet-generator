@@ -11,6 +11,7 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
+    path('pub/', include('publications.urls')),
     path('', include('image_generator.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
