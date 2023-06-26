@@ -2,7 +2,7 @@
 
 import openai
 
-from planet_generator.planet_generator.settings import OPENAI_TOKEN
+from planet_generator.settings import OPENAI_TOKEN
 
 openai.api_key = OPENAI_TOKEN
 
@@ -19,6 +19,8 @@ def generate_text_prompt(**kwargs) -> str:
                 Albedo values range from 0 (pitch black) to 1 (perfect reflector).
         gravity: The gravitational acceleration on the planet's surface at the equator.
         atmosphere: Specify whether planet would have some kind of atmosphere.
+        temperature: The average temperature on the planet.
+        planet_type:
 
     Returns:
         Text prompt.
@@ -29,12 +31,14 @@ def generate_text_prompt(**kwargs) -> str:
         'radius': 'km',
         'bulk_density': 'g*cm^(-3)',
         'gravity': 'm*s^(-2)',
+        'temperature': 'K',
     }
     for param, value in kwargs.items():
+        parameter = param.title().replace('_', ' ')
         if units_of_measurement.get(param):
-            text_prompt += f"{param.title()}: {value}{units_of_measurement[param]}\n"
+            text_prompt += f"{parameter}: {value}{units_of_measurement[param]}\n"
         else:
-            text_prompt += f"{param.title()}: {value}\n"
+            text_prompt += f"{parameter}: {value}\n"
     return text_prompt.rstrip()
 
 

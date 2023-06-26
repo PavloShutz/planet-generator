@@ -2,6 +2,7 @@
 
 from decimal import Decimal
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -103,6 +104,7 @@ class Planet(models.Model):
         upload_to='images/',
         help_text="Generated image of a planet."
     )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         """Return name of the planet."""
