@@ -1,3 +1,7 @@
 from django.db import models
+from django_comments.abstracts import BaseCommentAbstractModel
 
-# Create your models here.
+
+class CommentForPublication(BaseCommentAbstractModel):
+    """Comment for user's publication object."""
+    comment = models.TextField(max_length=5000)
