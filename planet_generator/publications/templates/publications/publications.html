@@ -1,0 +1,14 @@
+{% extends "image_generator/base.html" %}
+
+{% block content %}
+
+  <p>All publications:</p>
+
+  {% for publication in publications %}
+    <p>
+      <a href="{% url 'publications:publication' publication.planet.id %}">
+        {{ publication.planet.name }}
+      </a>
+    </p>
+  {% endfor %}
+{% endblock content %}

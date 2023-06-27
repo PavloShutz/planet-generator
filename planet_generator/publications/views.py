@@ -26,3 +26,9 @@ def publication(request, planet_id):
     """Show a single publication about planet."""
     publication = Publication.objects.get(planet_id=planet_id)
     return render(request, "publications/publication.html", {"publication": publication})
+
+
+def publications(request):
+    """Show publications from all users."""
+    publications = Publication.objects.all()
+    return render(request, "publications/publications.html", {"publications": publications})
