@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('pub/', include('publications.urls')),
+    path(r'^comments/', include('django_comments.urls')),
     path('', include('image_generator.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
