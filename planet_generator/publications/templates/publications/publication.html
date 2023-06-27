@@ -1,18 +1,39 @@
 {% extends "image_generator/base.html" %}
+{% load comments %}
 
 {% block content %}
 
-    <p>My new planet: {{ publication.planet.name }}</p>
-    <p>Description: {{ publication.pub_text|default:"No descritpion provided" }}</p>
-    <ul>
-        <li>Mass: {{ publication.planet.mass|floatformat }}x10^24 kg</li>
-        <li>Radius: {{ publication.planet.radius|floatformat }} km</li>
-        <li>Bulk density: {{ publication.planet.bulk_density|floatformat }} g*cm^(-3)</li>
-        <li>Albedo: {{ publication.planet.albedo|floatformat }}</li>
-        <li>Gravity: {{ publication.planet.gravity|floatformat }} m*s^(-2)</li>
-        <li>Temperature: {{ publication.planet.temperature|floatformat }} K</li>
-        <li>Has atmosphere: {{ publication.planet.atmosphere|yesno|title }}</li>
-        <li><img src="{{ publication.planet.image.url }}" alt="Oops"></li>
-    </ul>
+  <p>My new planet: {{ publication.planet.name }}</p>
+  <p>Description: {{ publication.pub_text|default:"No descritpion provided" }}</p>
+  <ul>
+    <li>Mass: {{ publication.planet.mass|floatformat }}x10^24 kg</li>
+    <li>Radius: {{ publication.planet.radius|floatformat }} km</li>
+    <li>Bulk density: {{ publication.planet.bulk_density|floatformat }} g*cm^(-3)</li>
+    <li>Albedo: {{ publication.planet.albedo|floatformat }}</li>
+    <li>Gravity: {{ publication.planet.gravity|floatformat }} m*s^(-2)</li>
+    <li>Temperature: {{ publication.planet.temperature|floatformat }} K</li>
+    <li>Has atmosphere: {{ publication.planet.atmosphere|yesno|title }}</li>
+    <li><img src="{{ publication.planet.image.url }}" alt="Oops"></li>
+  </ul>
+  {% get_comment_count for publication as comment_count %}
+  <p>This publication has {{ comment_count }} comments.</p>
+
+  {% if user.is_authenticated %}
+    {% get_comment_form for publication as form %}
+    <form action="{% comment_form_target %}" method="post">
+      {% csrf_token %}
+      <p>Comment: {{ form.comment }}</p>
+      <p hidden>{{ form.honeypot }}</p>
+      {{ form.content_type }}
+      {{ form.object_pk }}
+      {{ form.timestamp }}
+      {{ form.security_hash }}
+      <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+  {% else %}
+    <p>Please <a href="{% url 'users:login' %}">log in</a> to leave a comment.</p>
+  {% endif %}
+
+  {% render_comment_list for publication %}
 
 {% endblock content %}
