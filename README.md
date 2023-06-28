@@ -34,3 +34,4 @@ Simple web-service for creating images of planet
 - [x] ~~Make possible to:~~ 
   - [x] ~~publish~~
   - [x] ~~comment on someone's post~~
+- [ ] Design web pages
