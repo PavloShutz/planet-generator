@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     # installed apps
     'django_comments',
+    'django_bootstrap5',
 ]
 
 SITE_ID = 1
