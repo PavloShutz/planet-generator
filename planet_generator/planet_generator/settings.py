@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'image_generator',
     'users',
     'publications',
-    'custom_comments',
 
     # default apps
     'django.contrib.admin',
@@ -49,7 +48,6 @@ INSTALLED_APPS = [
     'django_comments',
 ]
 
-COMMENTS_APP = 'custom_comments'
 SITE_ID = 1
 
 MIDDLEWARE = [
