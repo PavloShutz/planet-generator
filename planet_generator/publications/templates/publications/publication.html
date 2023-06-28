@@ -15,25 +15,27 @@
     <li>Has atmosphere: {{ publication.planet.atmosphere|yesno|title }}</li>
     <li><img src="{{ publication.planet.image.url }}" alt="Oops"></li>
   </ul>
-  {% get_comment_count for publication as comment_count %}
-  <p>This publication has {{ comment_count }} comments.</p>
 
-  {% if user.is_authenticated %}
-    {% get_comment_form for publication as form %}
-    <form action="{% comment_form_target %}" method="post">
-      {% csrf_token %}
-      <p>Comment: {{ form.comment }}</p>
-      <p hidden>{{ form.honeypot }}</p>
+  {% get_comment_form for publication as form %}
+  <form action="{% comment_form_target %}" method="post">
+    {% csrf_token %}
+    <p>Name: {{ form.name }}</p>
+    <p>Email: {{ form.email }}</p>
+    <p>Comment: {{ form.comment }}</p>
+    <div hidden>
+      {{ form.honeypot }}
       {{ form.content_type }}
       {{ form.object_pk }}
       {{ form.timestamp }}
       {{ form.security_hash }}
-      <input type="submit" value="Add comment" id="id_submit" />
-    </form>
-  {% else %}
-    <p>Please <a href="{% url 'users:login' %}">log in</a> to leave a comment.</p>
-  {% endif %}
+    </div>
+    <input type="hidden" name="next"
+           value="{% url 'publications:publication' publication.planet.id %}" />
+    <input type="submit" value="Add comment" id="id_submit" />
+  </form>
 
+  {% get_comment_count for publication as comment_count %}
+  <p>There are {{ comment_count }} comment{{ comment_count|pluralize }}</p>
   {% render_comment_list for publication %}
 
 {% endblock content %}
