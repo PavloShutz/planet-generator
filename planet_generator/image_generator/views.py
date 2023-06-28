@@ -1,6 +1,7 @@
 """Views for 'image_generator' app."""
 
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from .forms import PlanetForm
 from . import image_generator as ig
@@ -11,6 +12,7 @@ def index(request):
     return render(request, 'image_generator/index.html')
 
 
+@login_required
 def new_planet(request):
     """Generate new planet."""
     if request.method != 'POST':

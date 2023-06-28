@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from image_generator.models import Planet
 from .models import Publication
 from .forms import PublicationForm
 
 
+@login_required
 def publish(request, planet_id):
     """Make publication about planet."""
     planet = Planet.objects.get(id=planet_id)

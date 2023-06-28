@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from image_generator.models import Planet
@@ -20,6 +21,7 @@ def register(request):
     return render(request, "registration/register.html", context)
 
 
+@login_required
 def portfolio(request):
     """Show user's portfolio of his planet images."""
     planets = Planet.objects.filter(owner=request.user).all()
