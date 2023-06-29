@@ -1,17 +1,64 @@
-{% load comments %}
-<p>
-  <a href="{% url 'img_generate:index' %}">Planet generator</a> -
-  <a href="{% url 'publications:publications' %}">People's planets</a> -
-  {% if user.is_authenticated %}
-    Hello, {{ user.username }} -
-    <a href="{% url 'users:portfolio' %}">My portfolio</a> -
-    <a href="{% url 'img_generate:new_planet' %}">New planet</a> -
-    <a href="{% url 'users:logout' %}">Log out</a>
-  {% else %}
-    <a href="{% url 'users:login' %}">Log in</a> -
-    <a href="{% url 'users:register' %}">Register</a>
-  {% endif %}
-  </p>
-<p>Generate images of planets using AI based on your input!</p>
+<!doctype html>
+<html lang="en">
+<head>
+  {% load django_bootstrap5 %}
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Planet generator</title>
 
-{% block content %}{% endblock content %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 border">
+    <a class="navbar-brand" href="{% url 'img_generate:index' %}">Planet generator</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'publications:publications' %}">People's planets</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        {% if user.is_authenticated %}
+          <span class="navbar-text">
+            Hello, {{ user.username }}
+          </span>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:portfolio' %}">My portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'img_generate:new_planet' %}">New planet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <main role="main" class="container align-items-md-stretch">
+    <div class="container py-4 border-bottom">
+      {% block page_header %}{% endblock page_header %}
+    </div>
+    <div>
+      {% block content %}{% endblock content %}
+    </div>
+  </main>
+
+</body>
+</html>
