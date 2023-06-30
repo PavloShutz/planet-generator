@@ -1,32 +1,75 @@
 {% extends "image_generator/base.html" %}
 
+{% block page_header %}
+  <h2>{{ user.username }}'s portfolio:</h2>
+{% endblock page_header %}
+
 {% block content %}
 
-  <p>{{ user.username }}'s portfolio:</p>
-
-  {% for planet in planets %}
-    <p>{{ planet.name }}</p>
-    <ul>
-      <li>Mass: {{ planet.mass|floatformat }}x10^24 kg</li>
-      <li>Radius: {{ planet.radius|floatformat }} km</li>
-      <li>Bulk density: {{ planet.bulk_density|floatformat }} g*cm^(-3)</li>
-      <li>Albedo: {{ planet.albedo|floatformat }}</li>
-      <li>Gravity: {{ planet.gravity|floatformat }} m*s^(-2)</li>
-      <li>Temperature: {{ planet.temperature|floatformat }} K</li>
-      <li>Has atmosphere: {{ planet.atmosphere|yesno|title }}</li>
-      <li><img src="{{ planet.image.url }}" alt="Oops"></li>
-      {% if planet.publication %}
-        <li>
-            <a href="{% url 'publications:publication' planet.id %}">View publication</a>
-        </li>
-      {% else %}
-        <li>
-            <a href="{% url 'publications:publish' planet.id %}">Create publication</a>
-        </li>
-      {% endif %}
-    </ul>
-  {% empty %}
-    <p>You have no planets in your portfolio yet.</p>
-  {% endfor %}
+    <div id="planets" class="carousel slide">
+      <div class="carousel-inner">
+        {% for planet in planets %}
+          {% if forloop.first %}
+            <div class="carousel-item active">
+              <img src="{{ planet.image.url }}" alt="Planet {{ planet.name }}" class="d-block w-100">
+              <div class="carousel-caption d-none d-md-block">
+                <h3>Name: {{ planet.name }}</h3><br>
+                <p>Mass: {{ planet.mass|floatformat }}x10^24 kg
+                </p>
+                <p>Radius: {{ planet.radius|floatformat }} km</p>
+                <p>Bulk density: {{ planet.bulk_density|floatformat }} g*cm^(-3)</p>
+                <p>Albedo: {{ planet.albedo|floatformat }}</p>
+                <p>Gravity: {{ planet.gravity|floatformat }} m*s^(-2)</p>
+                <p>Temperature: {{ planet.temperature|floatformat }} K</p>
+                <p>Has atmosphere: {{ planet.atmosphere|yesno|title }}</p>
+                {% if planet.publication %}
+                  <a type="button" class="btn btn-info"
+                     href="{% url 'publications:publication' planet.id %}">View publication</a>
+                {% else %}
+                  <a type="button" class="btn btn-primary"
+                     href="{% url 'publications:publish' planet.id %}">Create publication</a>
+                {% endif %}
+              </div>
+            </div>
+          {% else %}
+            <div class="carousel-item">
+              <img src="{{ planet.image.url }}" alt="Planet {{ planet.name }}" class="d-block w-100">
+              <div class="carousel-caption d-none d-md-block">
+                <h3>Name: {{ planet.name }}</h3><br>
+                <p>Mass: {{ planet.mass|floatformat }}x10^24 kg
+                </p>
+                <p>Radius: {{ planet.radius|floatformat }} km</p>
+                <p>Bulk density: {{ planet.bulk_density|floatformat }} g*cm^(-3)</p>
+                <p>Albedo: {{ planet.albedo|floatformat }}</p>
+                <p>Gravity: {{ planet.gravity|floatformat }} m*s^(-2)</p>
+                <p>Temperature: {{ planet.temperature|floatformat }} K</p>
+                <p>Has atmosphere: {{ planet.atmosphere|yesno|title }}</p>
+                {% if planet.publication %}
+                  <a type="button" class="btn btn-info"
+                     href="{% url 'publications:publication' planet.id %}">View publication</a>
+                {% else %}
+                  <a type="button" class="btn btn-primary"
+                     href="{% url 'publications:publish' planet.id %}">Create publication</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% empty %}
+          <div class="carousel-item active">
+            <div class="carousel-caption d-none d-md-block">
+              <p>You have no planets yet :(</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#planets" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#planets" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
 
 {% endblock content %}
