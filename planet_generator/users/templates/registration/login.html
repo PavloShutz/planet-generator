@@ -1,12 +1,17 @@
 {% extends 'image_generator/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block page_header %}
+  <h2>Log in:</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-    <p>Log in:</p>
-    <form action="{% url 'users:login' %}" method="post">
+    <form action="{% url 'users:login' %}" method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Log in</button>
+        {% bootstrap_form form %}
+        {% bootstrap_form_errors form layout='inline' %}
+        {% bootstrap_button "Login" button_type="submit" %}
         <input type="hidden" name="next" value="{% url 'img_generate:index' %}" />
     </form>
 
