@@ -1,1 +1,15 @@
 {% extends "image_generator/base.html" %}
+
+{% block page_header %}
+  <div class="p-5 mb-4 bg-body-tertiary bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Planet generator</h1>
+      <p class="col-md-8 fs-4">
+        Generate picture's of planets using AI. Describe some of the most important parameters of
+        planet in order to get truly realistic image. You can store them in your portfolio and share
+        with other's!
+      </p>
+      <a class="btn btn-primary btn-lg" type="button" href="{% url 'users:register' %}">Register &#9755;</a>
+    </div>
+  </div>
+{% endblock page_header %}
