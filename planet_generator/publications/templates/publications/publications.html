@@ -1,4 +1,5 @@
 {% extends "image_generator/base.html" %}
+{% load humanize %}
 
 {% block page_header %}
   <h2>All publications:</h2>
@@ -12,7 +13,7 @@
          class="list-group-item list-group-item-action pt-3" aria-current="true">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{ publication.planet.name }}</h5>
-          <small>3 days ago</small>
+          <small>{{ publication.planet.date_added|naturaltime }}</small>
         </div>
         <p class="mb-1">Author: {{ publication.planet.owner.username }}</p>
         <small>{{ publication.pub_text|truncatechars:50 }}</small>
