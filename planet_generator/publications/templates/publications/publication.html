@@ -1,26 +1,113 @@
 {% extends "image_generator/base.html" %}
 {% load comments %}
+{% load django_bootstrap5 %}
+
+{% block page_header %}
+  <h2>My new planet: {{ publication.planet.name }}</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-  <p>My new planet: {{ publication.planet.name }}</p>
-  <p>Description: {{ publication.pub_text|default:"No descritpion provided" }}</p>
-  <ul>
-    <li>Mass: {{ publication.planet.mass|floatformat }}x10^24 kg</li>
-    <li>Radius: {{ publication.planet.radius|floatformat }} km</li>
-    <li>Bulk density: {{ publication.planet.bulk_density|floatformat }} g*cm^(-3)</li>
-    <li>Albedo: {{ publication.planet.albedo|floatformat }}</li>
-    <li>Gravity: {{ publication.planet.gravity|floatformat }} m*s^(-2)</li>
-    <li>Temperature: {{ publication.planet.temperature|floatformat }} K</li>
-    <li>Has atmosphere: {{ publication.planet.atmosphere|yesno|title }}</li>
-    <li><img src="{{ publication.planet.image.url }}" alt="Oops"></li>
-  </ul>
+  <div class="card mb-3 mt-3" style="max-width: 100%;">
+    <div class="row g-0">
+      <div class="col-md-4" style="width: 350px;">
+        <img src="{{ publication.planet.image.url }}" class="img-fluid rounded-start" alt="...">
+        <p class="card-text pt-4">
+          Author: <b>{{ publication.planet.owner.username }}</b>
+        </p>
+        <p class="card-text pb-3 pl-2">
+          Description:
+          <mark class="font-monospace">
+            {{ publication.pub_text|default:"No descritpion provided" }}
+          </mark>
+        </p>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <p class="card-text">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Mass
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body"><em>{{ publication.planet.mass|floatformat }}x10^24 kg</em></div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Radius
+                  </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body"><em>{{ publication.planet.radius|floatformat }} km</em></div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Bulk density
+                  </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body"><em>{{ publication.planet.bulk_density|floatformat }} g*cm^(-3)</em></div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Albedo
+                  </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body"><em>{{ publication.planet.albedo|floatformat }}</em></div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Gravity
+                  </button>
+                </h2>
+                <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body"><em>{{ publication.planet.gravity|floatformat }} m*s^(-2)</em></div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Temperature
+                  </button>
+                </h2>
+                <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body"><em>{{ publication.planet.temperature|floatformat }} K</em></div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Has atmosphere
+                  </button>
+                </h2>
+                <div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body"><em>{{ publication.planet.atmosphere|yesno|title }}</em></div>
+                </div>
+              </div>
+            </div>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   {% if user.is_authenticated %}
     {% get_comment_form for publication as form %}
-    <form action="{% comment_form_target %}" method="post">
+    <form action="{% comment_form_target %}" method="post" class="form">
       {% csrf_token %}
-      <p>Comment: {{ form.comment }}</p>
+      {% bootstrap_field form.comment show_label=False %}
       <div hidden>
         {{ form.honeypot }}
         {{ form.content_type }}
@@ -30,14 +117,14 @@
       </div>
       <input type="hidden" name="next"
              value="{% url 'publications:publication' publication.planet.id %}" />
-      <input type="submit" value="Add comment" id="id_submit" />
+      {% bootstrap_button "Add comment" button_type="submit" id="id_submit" %}
     </form>
   {% else %}
-    <p>Please <a href="{% url 'users:login' %}">log in</a> to leave a comment.</p>
+    <p>Please <a type="button" class="btn btn-link" href="{% url 'users:login' %}">log in</a> to leave a comment.</p>
   {% endif %}
 
   {% get_comment_count for publication as comment_count %}
-  <p>Read {{ comment_count }} comment{{ comment_count|pluralize }}:</p>
+  <br><em style="font-size: 25px;">Read {{ comment_count }} comment{{ comment_count|pluralize }}:</em><br><br>
   {% render_comment_list for publication %}
 
 {% endblock content %}
