@@ -104,6 +104,7 @@ class Planet(models.Model):
         help_text="Generated image of a planet."
     )
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         """Return name of the planet."""
