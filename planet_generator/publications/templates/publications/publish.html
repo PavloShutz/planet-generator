@@ -1,13 +1,16 @@
 {% extends "image_generator/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block page_header %}
+  <h2>Create publication for '{{ planet.name }}':</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-    <p>Create publication for '{{ planet.name }}':</p>
-
-    <form action="{% url 'publications:publish' planet.id %}" method="post">
+    <form action="{% url 'publications:publish' planet.id %}" method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Publish</button>
+        {% bootstrap_form form %}
+        {% bootstrap_button "Publish" button_type="submit" button_class="btn-warning" size="lg" %}
     </form>
 
 {% endblock content %}
