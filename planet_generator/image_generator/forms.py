@@ -1,7 +1,7 @@
 """Forms for 'image_generator' app."""
 
 from django.forms import ModelForm
-from django_bootstrap5.widgets import RadioSelectButtonGroup, RadioSelect
+from django_bootstrap5.widgets import RadioSelectButtonGroup
 
 from .models import Planet
 
